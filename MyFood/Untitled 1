@@ -1,0 +1,21 @@
+db
+
+select * from memberone;
+desc memberone;
+
+
+CREATE TABLE myfood1 (
+    name VARCHAR2(20) primary key,
+    indate TIMESTAMP(6) DEFAULT SYSDATE
+);
+
+desc myfood1;
+
+
+commit;
+select * from myfood1;
+
+
+drop table myfood1;
+delete
+ALTER TABLE myfood1 ADD PRIMARY KEY (name);
