@@ -12,11 +12,56 @@ public class MainMenuAdm {
 	
 	MainMenuAdm() {
 		
+		//init1();
+		//insert();
+		//delete();
+		//edit();
+		//list();
+		menu();
+		
+	}
+	
+	private void menu() {
 		init1();
-		insert();
-		delete();
-		edit();
-		list();
+		Scanner in = new Scanner(System.in);
+		
+		
+		while(true) {
+			menusel();
+			int temp = in.nextInt();
+			in.nextLine();
+			
+			if(temp == 1) {
+				insert();
+				
+			}else if (temp ==2) {
+				delete();
+				
+			}else if(temp ==3) {
+				edit();
+				
+			}else if(temp == 4) {
+				list();
+				
+			}else if(temp == 0) {
+				System.out.println("종료");
+				break;
+			}
+			else {
+				System.out.println("잘못된접근");
+			}
+	   }
+		
+	}
+	
+	private void menusel() {
+		System.out.println("1.음식 등록");
+		System.out.println("2.음식 삭제");
+		System.out.println("3.음식 수정");
+		System.out.println("4.전체보기");
+		System.out.println("0.종료");
+		System.out.println(">> 숫자를 입력하시오");
+		
 	}
 	
 	
@@ -33,9 +78,13 @@ public class MainMenuAdm {
 		
 	}
 
-	private void insert() {
+	private void insert() { // db에 name 에 unique 설정해 둬서 중복된거 안들어감
 		FoodOneDTO food = new FoodOneDTO();
-		food.setName("햄버거");
+		Scanner in = new Scanner(System.in);
+		System.out.println("등록할 음식명을 입력하시오");
+		String fname = in.nextLine();
+		food.setName(fname);
+		
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "system", "11111111");
@@ -51,7 +100,7 @@ public class MainMenuAdm {
 			}else {
 				conn.commit();
 			}
-			System.out.println("음식 등록 완료ㄴ");
+			System.out.println("음식 등록 완료");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,6 +114,7 @@ public class MainMenuAdm {
 				}
 			}
 		}
+		return;
 	}
 	
 	private void delete() {
@@ -185,7 +235,7 @@ public class MainMenuAdm {
 			}else {
 				conn.commit();
 			}
-			System.out.println("수정완료");
+			System.out.println("-----------------");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -199,7 +249,9 @@ public class MainMenuAdm {
 					e.printStackTrace();
 				}
 			}
+			
 		}
+		
 		
 	}
 	
