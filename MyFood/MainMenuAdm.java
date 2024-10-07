@@ -69,7 +69,7 @@ public class MainMenuAdm {
 		
 		
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Class.forName("oracle.jdbc.driver.OracleDriver"); // 데이터베이스 드라이버를 로드하는 작업
 			System.out.println("로드");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -78,8 +78,8 @@ public class MainMenuAdm {
 		
 	}
 
-	private void insert() { // db에 name 에 unique 설정해 둬서 중복된거 안들어감
-		FoodOneDTO food = new FoodOneDTO();
+	private void insert() { // db, name 에 unique 설정해 둬서 중복된거 안들어감
+		FoodOneDTO food = new FoodOneDTO(); //DTO 객체 생성
 		Scanner in = new Scanner(System.in);
 		System.out.println("등록할 음식명을 입력하시오");
 		String fname = in.nextLine();
@@ -221,7 +221,7 @@ public class MainMenuAdm {
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				while(rs.next()) {
-					System.out.println("음식의 이름: " + rs.getString("name"));
+					System.out.println("음식의 이름: " + rs.getString("name")+ "  indate: " + rs.getTimestamp("indate"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
