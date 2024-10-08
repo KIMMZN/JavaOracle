@@ -132,12 +132,16 @@ public class MainMenuAdm {
 			String sql = "delete from myfood1 where name = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			//매핑
-			pstmt.setString(1, tempName); // 바인딩
+			pstmt.setString(1, tempName); 
 			//실행 후 리턴 값 가져오기
-			int result = pstmt.executeUpdate();
+			//변화한 횟수를 인트값으로 리턴함.
+			int result = pstmt.executeUpdate(); 
+			// 0이면 아무런 변화도 없었다는것
 			if(result == 0) {
+				//변화가 없었으니 롤백
 				conn.rollback();
 			}else {
+				//있엇으니 컴밋(저장)
 				conn.commit();
 			}
 			
@@ -145,9 +149,12 @@ public class MainMenuAdm {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
+			//connection conn != null , con close(); 
 			if(conn != null) {
 				try {
+					System.out.println("디버그용");
 					conn.close();
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -173,8 +180,7 @@ public class MainMenuAdm {
 			String editName = in.nextLine();
 			String sql = "update myfood1 set name = ? where name = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			//매핑
-			
+			//매핑			
 			pstmt.setString(2, tempName); // 바인딩
 			pstmt.setString(1, editName );
 			//실행 후 리턴 값 가져오기
@@ -243,6 +249,7 @@ public class MainMenuAdm {
 		} finally {
 			if(conn != null) {
 				try {
+					//반납, Connection .close();
 					conn.close();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
